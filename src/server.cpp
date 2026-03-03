@@ -28,6 +28,10 @@ void Server::start() {
 
 void Server::setupSocket() {
     server_fd_ = socket(AF_INET, SOCK_STREAM, 0);
+    if (server_fd_ == -1) {
+	perror("socket");
+	exit(EXIT_FAILURE);
+    }
 
     int opt = 1;
     setsockopt(server_fd_, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
